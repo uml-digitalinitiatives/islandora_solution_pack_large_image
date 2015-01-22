@@ -149,6 +149,12 @@ function islandora_large_image_create_jpg_derivative(AbstractObject $object, $fo
     );
 
     $uploaded_file = islandora_large_image_get_uploaded_file($object);
+    if (isset($object['OBJ'])) {
+      $label = t($object['OBJ']->label . 'jpg');
+    }
+    else {
+      $label = t('Medium sized JPEG');
+    }
     $args = array();
     $args[] = '-resize ' . escapeshellarg("600 x 800");
     $args[] = '-quality ' . escapeshellarg(variable_get('imagemagick_quality', 75));
@@ -161,7 +167,7 @@ function islandora_large_image_create_jpg_derivative(AbstractObject $object, $fo
       );
     }
     else {
-      $added_successfully = islandora_large_image_add_datastream($object, 'JPG', $derivative_file, 'image/jpeg', t('Medium sized JPEG'));
+      $added_successfully = islandora_large_image_add_datastream($object, 'JPG', $derivative_file, 'image/jpeg', $label);
       if (TRUE === $added_successfully) {
         $to_return['messages'][] = array(
           'message' => t('Created JPG derivative.'),
