@@ -471,7 +471,7 @@ function islandora_large_image_is_uncompressed_tiff($file) {
 
   $escaped_file = escapeshellarg(drupal_realpath($file));
 
-  $compression = exec(escapeshellcmd("$identify -format \"%C\"") . $escaped_file);
+  $compression = exec(escapeshellcmd("$identify -format \"%C\" ") . $escaped_file);
 
   $compressed = (strtolower($compression) != 'none');
 
@@ -492,7 +492,7 @@ function islandora_large_image_is_tiff($file) {
 
   $escaped_file = escapeshellarg(drupal_realpath($file));
 
-  $codec = exec(escapeshellcmd("$identify -format \"%m\"") . $escaped_file);
+  $codec = exec(escapeshellcmd("$identify -format \"%m\" ") . $escaped_file);
 
   $is_tiff = strrpos(strtolower($codec), 'tiff');
 
@@ -518,7 +518,7 @@ function islandora_large_image_is_jp2($file) {
 
   $escaped_file = escapeshellarg(drupal_realpath($file));
 
-  $codec = exec(escapeshellcmd("$identify -format \"%m\"") . $escaped_file);
+  $codec = exec(escapeshellcmd("$identify -format \"%m\" ") . $escaped_file);
 
   $is_jp2 = (strtolower($codec) == 'jp2');
 
